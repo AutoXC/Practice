@@ -23,19 +23,18 @@ public class Solution {
             int temp;
             if (!m.containsKey(arr[i])) {
                 temp = i - cut + 1;
-                count = temp > count ? temp : count;
-                m.put(arr[i], i);
             } else {
                 // 保持cut断点是递增的
                 cut = (m.get(arr[i]) + 1) > cut ? (m.get(arr[i]) + 1) : cut;
-                if (arr[i] < cut) {
+                // 保证cut断点前的值不再访问
+                if (m.get(arr[i]) > cut) {
                     temp = i - m.get(arr[i]);
                 } else {
                     temp = i - cut + 1;
                 }
-                count = temp > count ? temp : count;
-                m.put(arr[i], i);
             }
+            count = temp > count ? temp : count;
+            m.put(arr[i], i);
         }
         if (m.size() == arr.length) {
             count = arr.length;

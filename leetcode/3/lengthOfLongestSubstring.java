@@ -27,11 +27,7 @@ public class Solution {
                 // 保持cut断点是递增的
                 cut = (m.get(arr[i]) + 1) > cut ? (m.get(arr[i]) + 1) : cut;
                 // 保证cut断点前的值不再访问
-                if (m.get(arr[i]) > cut) {
-                    temp = i - m.get(arr[i]);
-                } else {
-                    temp = i - cut + 1;
-                }
+                temp = i - cut + 1;
             }
             count = temp > count ? temp : count;
             m.put(arr[i], i);

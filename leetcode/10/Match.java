@@ -2,7 +2,10 @@ package no10;
 
 public class Match {
     public static void main(String[] args) {
-        
+        String s = "aaa";
+        String p = "ab*a*c*a";
+        System.out.println(isMatch(s,p));
+        //无法解决解决s=aaa;p=aab*a*之类问题，当考虑.*嵌入时也未解决
     }
     /**
      * s 可能为空，且只包含从 a-z 的小写字母。
@@ -49,5 +52,13 @@ public class Match {
             ip--;
         }
         //考虑is和ip值
+        if(is<ip) {
+            while(0<=ip && p.charAt(ip)=='*') {
+                ip -= 2;
+            }
+            if(ip>=0) return false;
+        }
+        if(is>ip) return false;
+        return true;
     }
 }

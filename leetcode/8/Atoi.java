@@ -78,9 +78,9 @@ public class Atoi {
             }
         }else {return 0;}
         
-        try {
-            char[] temp = new char[ans.size()];
+        char[] temp = new char[ans.size()];
             for(int i = 0;i<temp.length;i++) {temp[i]=ans.get(i);}
+        try {
             num = Integer.parseInt(new String(temp));
         } catch (Exception e) {
             // TODO Auto-generated catch block

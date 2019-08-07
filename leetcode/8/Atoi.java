@@ -1,5 +1,7 @@
 package no8;
 
+import java.util.ArrayList;
+
 //示例 1:
 //
 //输入: "42"
@@ -31,37 +33,58 @@ package no8;
 public class Atoi {
 
     public static void main(String[] args) {
-        String str = "42";
+        String str = "+5345";
         System.out.println(myAtoi(str));
+        
+
     }
 
     public static int myAtoi(String str) {
         char[] arr = str.toCharArray();
         int len = arr.length;
 
-        char[] ans = new char[len];
+        char first = '\0';
         int index = 0;
+        ArrayList<Character> ans= new ArrayList<Character>();
+        
         int num = 0;
 
         if (len == 0)
             return 0;
-        // 获得代表整数的字符数组
+        // 获得第一个非空字符
         for (int i = 0; i < len; i++) {
             if (arr[i] == ' ') {
                 continue;
-            } else if (arr[i] == '-' || ('0' <= arr[i] && arr[i] <= '9')) {
-                ans[index] = arr[i];
-                index++;
-            } else if (ans[0] == '\0') {
-                return 0;
+            }else {
+                index = i;
+                first=arr[i];
+                break;
             }
         }
         
+        if(first=='-'||first=='+') {
+            if(index+1==len||'9'<arr[index+1]||arr[index+1]<'0') {return 0;}
+            else {
+                ans.add(first);
+                for(int i = index+1;i<len;i++) {
+                    if('9'<arr[i]||arr[i]<'0') {break;}
+                    ans.add(arr[i]);
+                }
+            }
+        }else if('0'<=first&&first<='9'){
+            for(int i = index;i<len;i++) {
+                if('9'<arr[i]||arr[i]<'0') {break;}
+                ans.add(arr[i]);
+            }
+        }else {return 0;}
+        
         try {
-            num = Integer.parseInt(new String(ans));
+            char[] temp = new char[ans.size()];
+            for(int i = 0;i<temp.length;i++) {temp[i]=ans.get(i);}
+            num = Integer.parseInt(new String(temp));
         } catch (Exception e) {
             // TODO Auto-generated catch block
-            if(ans[0]=='-') return Integer.MIN_VALUE;
+            if(ans.get(0)=='-') return Integer.MIN_VALUE;
             else return Integer.MAX_VALUE;
         }
         return num;

@@ -6,11 +6,9 @@ public class StringMultiply {
     public static void main(String[] args) {
         long start = System.nanoTime();
         
-        String s = "1";
-        ArrayList<String> s1 = new ArrayList<String>();
-        s1.add("0");s1.add("0");s1.add("1");
-        int i = 1;
-        while(!s1.isEmpty()) {System.out.println(i++);isnull(s1);}
+        String n1 = "123456789";
+        String n2 = "987654321";
+        System.out.println(multiply(n1, n2));
         
         long end = System.nanoTime();
         System.out.println(end-start);
@@ -27,11 +25,52 @@ public class StringMultiply {
         for(int i = len2-1;-1<i;i--) {s2.add(num2.substring(i, i+1));}
         
         ArrayList<String> ans = new ArrayList<String>();
+        boolean first = true;
         while(!s2.isEmpty()) {
             boolean isten = false;
-            for(int i = 0; i<len;i++) {
-                ans+=s1;
+            for(int i = 0; i<len1||i<ans.size();i++) {
+                if(first) {
+                    ans.add(s1.get(i));
+                }else {
+                    if(i<len1) {
+                        int temp1 = Integer.parseInt(ans.get(i));
+                        int temp2 = Integer.parseInt(s1.get(i));
+                        int sum = isten?(temp1 + temp2 + 1):(temp1 + temp2);
+                        if(sum>=10) {
+                            isten = true;
+                            ans.set(i,Integer.toString(sum%10));
+                            if(i==len1-1&&ans.size()==len1) {
+                                ans.add("1");
+                                isten=false;
+                                break;
+                            }
+                        }else {
+                            isten = false;
+                            ans.set(i,Integer.toString(sum));
+                        }
+                    }else {
+                        int temp = Integer.parseInt(ans.get(i));
+                        
+                        int sum = isten?(temp + 1):(temp);
+                        if(sum>=10) {
+                            isten = true;
+                            ans.set(i,Integer.toString(sum%10));
+                            if(i==ans.size()-1) {
+                                ans.add("1");
+                                isten=false;
+                                break;
+                            }
+                        }else {
+                            isten = false;
+                            ans.set(i,Integer.toString(sum));
+                            //break;
+                        }
+                    }
+                    
+                }
+                
             }
+            first = false;
             isnull(s2);
         }
         String s = "";

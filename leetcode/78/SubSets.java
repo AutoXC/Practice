@@ -6,10 +6,13 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SubSets {
+public class SubSet {
     public static void main(String[] args) {
+        long start = System.nanoTime();
         int[] nums = {1,2,3};
         System.out.println(subsets(nums));
+        long end = System.nanoTime();
+        System.out.println(end-start);
     }
     
     public static List<List<Integer>> subsets(int[] nums) {
@@ -32,16 +35,17 @@ public class SubSets {
         if(index == n) {
             ArrayList<Integer> temp = new ArrayList<Integer>();
             for(int i = 0;i<n;i++) {temp.add(nums.get(i));}
-//            Collections.sort(temp);
+            Collections.sort(temp);
             out.add(temp);
-        }
-        for(int i = index;i<nums.size();i++) {
-            Collections.swap(nums, index, i);
-            // use next integers to complete the permutations
-            //开始探索
-            backtrack(n, nums, out, index + 1);
-            // backtrack 回溯，将遍历到的值放回原处，开始下一次遍历
-//            Collections.swap(nums, index, i);
+        }else if(index<n){
+            for(int i = index;i<nums.size();i++) {
+                Collections.swap(nums, index, i);
+                // use next integers to complete the permutations
+                //开始探索
+                backtrack(n, nums, out, index + 1);
+                // backtrack 回溯，将遍历到的值放回原处，开始下一次遍历
+                Collections.swap(nums, index, i);
+            }
         }
     }
 }

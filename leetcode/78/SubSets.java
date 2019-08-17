@@ -31,7 +31,7 @@ public class SubSet {
         }
     }
 
-    public static List<List<Integer>> subsets(int[] nums) {
+    public static List<List<Integer>> subsets0(int[] nums) {
         List<List<Integer>> output = new LinkedList();
         HashSet<List<Integer>> out = new HashSet();
         ArrayList<Integer> nums_lst = new ArrayList<Integer>();
@@ -40,14 +40,14 @@ public class SubSet {
         }
         out.add(new ArrayList<Integer>());
         for(int n = 1;n<nums.length+1;n++) {
-            backtrack(n,nums_lst,out,0);
+            backtrack0(n,nums_lst,out,0);
         }
         
         output.addAll(out);
         return output;
     }
     
-    public static void backtrack(int n,ArrayList<Integer> nums,HashSet<List<Integer>> out,int index) {
+    public static void backtrack0(int n,ArrayList<Integer> nums,HashSet<List<Integer>> out,int index) {
         if(index == n) {
             ArrayList<Integer> temp = new ArrayList<Integer>();
             for(int i = 0;i<n;i++) {temp.add(nums.get(i));}
@@ -58,7 +58,7 @@ public class SubSet {
                 Collections.swap(nums, index, i);
                 // use next integers to complete the permutations
                 //开始探索
-                backtrack(n, nums, out, index + 1);
+                backtrack0(n, nums, out, index + 1);
                 // backtrack 回溯，将遍历到的值放回原处，开始下一次遍历
                 Collections.swap(nums, index, i);
             }
